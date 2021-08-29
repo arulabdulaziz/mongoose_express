@@ -7,4 +7,14 @@ const db = {
   url: dbConfig.url,
   post: require("./post.model")(mongoose)
 };
+db.mongoose
+  .connect(db.url, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log("Success connect");
+  })
+  .catch((err) => {
+    console.log("Error to connect", err);
+    process.exit();
+  });
+
 module.exports = db;

@@ -8,18 +8,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 const PostController = require("./app/controllers/PostController")
-const db = require("./app/models");
-db.mongoose
-  .connect(db.url, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log("Success connect");
-  })
-  .catch((err) => {
-    console.log("Error to connect", err);
-    process.exit();
-  });
-
+require("./app/models");
 app.get("/", PostController.index);
 app.post("/", PostController.create);
+app.get("/:id", PostController.show);
+app.put("/:id", PostController.update);
+app.delete("/:id", PostController.delete);
 
 module.exports = app;
